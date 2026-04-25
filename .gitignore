@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# uv
+.uv-cache/
+
+# Env & secrets
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# Project runtime artifacts
+notes/
+**/checkpoint.sqlite
+**/checkpoint.sqlite-journal
+*.log
+
+# OS
+.DS_Store
