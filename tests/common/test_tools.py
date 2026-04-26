@@ -90,3 +90,14 @@ def test_all_tools_list_complete():
         "calculator",
         "save_note",
     }
+
+
+# ---------- 跨测试隔离不变量 ----------
+
+def test_tavily_client_is_reset_between_tests():
+    """conftest.py 的 autouse fixture 应当在每个测试入口把 _TAVILY_CLIENT 清空，
+    避免上一个测试 monkeypatch 注入的 FakeClient 泄漏到下一个测试。"""
+    import common.tools as tools_mod
+    assert tools_mod._TAVILY_CLIENT is None, (
+        "_TAVILY_CLIENT 在测试入口应为 None，否则跨测试状态会泄漏"
+    )
