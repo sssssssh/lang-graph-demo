@@ -59,7 +59,9 @@ _QUOTE_DB = {
 
 @tool
 def get_quote(symbol: str) -> dict:
-    """查询某只股票的最新报价与近 52 周高低（mock 数据，仅用于教学示例）。"""
+    """查询某只股票的最新报价与近 52 周高低（mock 数据，仅用于教学示例）。
+    仅支持以下 symbol：NVDA、AAPL、TSLA、MSFT；其他 symbol 返回 error 字段。
+    """
     sym = symbol.upper().strip()
     if sym in _QUOTE_DB:
         return _QUOTE_DB[sym]
@@ -78,7 +80,9 @@ _FUNDAMENTALS_DB = {
 
 @tool
 def get_fundamentals(symbol: str) -> dict:
-    """查询某只股票的基本面快照（PE/PB、营收同比、净利润同比；mock 数据）。"""
+    """查询某只股票的基本面快照（PE/PB、营收同比、净利润同比；mock 数据）。
+    仅支持以下 symbol：NVDA、AAPL、TSLA、MSFT；其他 symbol 返回 error 字段。
+    """
     sym = symbol.upper().strip()
     if sym in _FUNDAMENTALS_DB:
         return _FUNDAMENTALS_DB[sym]
@@ -99,6 +103,10 @@ def _safe_eval(node):
     if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
         return node.value
     if isinstance(node, ast.BinOp) and type(node.op) in _ALLOWED_BIN_OPS:
+        # 防 DoS：限制 ** 的右操作数为小常量，避免 9**9**9**9 之类卡死
+        if isinstance(node.op, ast.Pow):
+            if not (isinstance(node.right, ast.Constant) and abs(node.right.value) <= 100):
+                raise ValueError("** 右操作数必须是绝对值 ≤ 100 的常量")
         return _ALLOWED_BIN_OPS[type(node.op)](_safe_eval(node.left), _safe_eval(node.right))
     if isinstance(node, ast.UnaryOp) and type(node.op) in _ALLOWED_UNARY_OPS:
         return _ALLOWED_UNARY_OPS[type(node.op)](_safe_eval(node.operand))
@@ -130,7 +138,7 @@ def save_note(title: str, content: str) -> str:
     notes_dir.mkdir(parents=True, exist_ok=True)
 
     safe_title = _FILENAME_SAFE.sub("-", title.strip())[:60] or "note"
-    ts = datetime.now().strftime("%Y%m%d-%H%M%S")
+    ts = datetime.now().strftime("%Y%m%d-%H%M%S-%f")[:-3]
     path = notes_dir / f"{ts}-{safe_title}.md"
     path.write_text(f"# {title}\n\n{content}\n", encoding="utf-8")
     return f"已保存笔记 {title} 到 {path}"

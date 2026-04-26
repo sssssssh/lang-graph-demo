@@ -23,7 +23,9 @@ def test_get_quote_returns_known_symbol():
 
 def test_get_quote_unknown_symbol_returns_not_found():
     res = get_quote.invoke({"symbol": "ZZZZ"})
-    assert "error" in res or res.get("symbol") == "ZZZZ" and res.get("price") is None
+    assert "error" in res
+    assert res.get("symbol") == "ZZZZ"
+    assert res.get("price") is None
 
 
 # ---------- get_fundamentals ----------
