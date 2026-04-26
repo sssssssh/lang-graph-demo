@@ -48,10 +48,10 @@ cp .env.example .env
 - [07-human-in-the-loop](07-human-in-the-loop/) — `interrupt()` / `Command(resume)`
 - [08-streaming](08-streaming/) — `stream_mode` updates / values / messages
 
-### 坐 4：多 Agent 与生产化（Plan 4，待生成）
-- 09-multi-agent
-- x2-map-reduce
-- 10-production
+### 坐 4：多 Agent 与生产化
+- [09-multi-agent](09-multi-agent/) — Subgraph + Supervisor 多 agent 模式
+- [x2-map-reduce](x2-map-reduce/) — `Send` API 并行 fan-out/fan-in（独立小例）
+- [10-production](10-production/) — FastAPI + LangSmith + 重试装饰器
 
 ## 跑某个模块
 
