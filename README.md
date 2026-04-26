@@ -38,10 +38,10 @@ cp .env.example .env
 - [02-state-and-reducer](02-state-and-reducer/) — `add_messages` reducer 与字段合并语义
 - [x1-pure-routing](x1-pure-routing/) — 条件边与循环（独立小例）
 
-### 坐 2：接入 LLM 与工具（Plan 2，待生成）
-- 03-routing-and-llm
-- 04-tool-calling
-- 05-react-loop
+### 坐 2：接入 LLM 与工具
+- [03-routing-and-llm](03-routing-and-llm/) — 第一次调真 LLM，做意图路由
+- [04-tool-calling](04-tool-calling/) — `bind_tools` / `ToolNode` / `tools_condition` 三件套
+- [05-react-loop](05-react-loop/) — `create_react_agent` 一行起飞，并对比手写低阶版
 
 ### 坐 3：让 Agent 真正能用（Plan 3，待生成）
 - 06-persistence
