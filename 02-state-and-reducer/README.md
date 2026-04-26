@@ -45,6 +45,7 @@ uv run python 02-state-and-reducer/main.py
 2. **节点返回完整 messages 列表**：返回 `{"messages": full_list}` 也能用，但容易把"新旧合并"和"自己 append"两种心智模型混着用，最后调试困难。**始终只返回新增项**
 3. **`turn_count` 这种数值字段**：没 reducer 是对的（你想"覆盖"为最新值）；如果用错了 reducer 会乱
 4. **MessagesState vs 自定义 State**：只有 messages 一个字段时直接用 `MessagesState` 更简洁，要加别的字段就自己写 TypedDict
+5. **`chat_once` 把整段 history 灌进 input，与"节点只返回新增项"是两件事**：本例为了演示累加效果，`chat_once` 每次都用 `history + [新 HumanMessage]` 作为完整 input；`add_messages` 按 message id 智能去重所以历史不会重复累加。换句话说，"input 含完整历史"和"节点只返回新增项"是叠加的两种机制。模块 06 引入 checkpointer 之后，state 由框架自动恢复，input 里就只需要传新消息了
 
 ## 7. 小练习
 

@@ -2,6 +2,12 @@
 
 走 OpenAI 兼容协议，默认指向火山引擎方舟。
 切换其他厂商（DeepSeek / 通义 / 智谱）只需改 .env，代码不动。
+
+⚠️ 副作用提示：本模块在 import 时会调用 `load_dotenv()`，把仓库根 `.env` 加载到 `os.environ`。
+   这意味着 `from common.llm import get_llm` 这一行就会读文件、改环境变量。
+   若你写测试时希望完全隔离，请在 fixture 中用 `monkeypatch.setattr(os.environ, ...)`
+   或 `patch.dict(os.environ, {...}, clear=True)`，并注意 `load_dotenv()` 默认 `override=False`，
+   不会覆盖已存在的 env 变量。
 """
 import os
 
