@@ -43,10 +43,10 @@ cp .env.example .env
 - [04-tool-calling](04-tool-calling/) — `bind_tools` / `ToolNode` / `tools_condition` 三件套
 - [05-react-loop](05-react-loop/) — `create_react_agent` 一行起飞，并对比手写低阶版
 
-### 坐 3：让 Agent 真正能用（Plan 3，待生成）
-- 06-persistence
-- 07-human-in-the-loop
-- 08-streaming
+### 坐 3：让 Agent 真正能用
+- [06-persistence](06-persistence/) — `MemorySaver` / `SqliteSaver` / `thread_id`
+- [07-human-in-the-loop](07-human-in-the-loop/) — `interrupt()` / `Command(resume)`
+- [08-streaming](08-streaming/) — `stream_mode` updates / values / messages
 
 ### 坐 4：多 Agent 与生产化（Plan 4，待生成）
 - 09-multi-agent
