@@ -7,7 +7,14 @@
 再用一个 supervisor 节点根据用户意图路由到二者之一。
 关键观察：编译后的 subgraph 可以直接作为节点 add_node("name", subgraph)。
 """
+import sys
+from pathlib import Path
 from typing import Literal
+
+# 兼容按文件路径直接执行 `main.py` 时的导入路径。
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import HumanMessage, SystemMessage

@@ -9,7 +9,15 @@
 - add_conditional_edges 怎么根据 state 字段挑分支
 - InvestBotState 作为跨模块基类的扩展用法
 """
+import sys
+from pathlib import Path
 from typing import Literal
+
+# 兼容 `uv run python 03-routing-and-llm/main.py` 这种按文件路径直接执行的启动方式。
+# 这时 Python 只会自动把当前脚本目录放进 sys.path，仓库根目录里的 common/ 不一定能被找到。
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage

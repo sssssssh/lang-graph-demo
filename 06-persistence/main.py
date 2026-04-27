@@ -7,8 +7,15 @@
 
 本模块演示 MemorySaver（进程内）+ SqliteSaver（落盘）两种 checkpointer。
 """
+import sys
 from contextlib import contextmanager
+from pathlib import Path
 from typing import Iterator
+
+# 兼容按文件路径直接执行 `main.py` 时的导入路径。
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import HumanMessage, SystemMessage

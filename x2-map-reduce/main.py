@@ -8,7 +8,14 @@
 完全不调 LLM，专注演示 Send API 的并行机制。
 """
 import operator
+import sys
+from pathlib import Path
 from typing import Annotated, TypedDict
+
+# 兼容按文件路径直接执行 `main.py` 时的导入路径。
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 from langgraph.graph import StateGraph, START, END
 from langgraph.types import Send

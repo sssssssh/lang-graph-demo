@@ -5,10 +5,19 @@ create_react_agent(model, tools, prompt=...) 一行搭出 ReAct agent。
 
 为充分演示，本模块挂上 ALL_TOOLS（5 个工具，含 Tavily 真实联网）。
 """
+import sys
+from pathlib import Path
+
+# 兼容按文件路径直接执行 `main.py` 时的导入路径。
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import StateGraph, START, END
 from langgraph.prebuilt import ToolNode, create_react_agent, tools_condition
+from langchain.agents import create_agent
 
 from common.llm import get_llm
 from common.prompts import SYSTEM_BASE

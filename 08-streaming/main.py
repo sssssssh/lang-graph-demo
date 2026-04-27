@@ -8,6 +8,14 @@ graph.stream(...) 让你拿到中间事件而不是只等最终 state。三种�
 
 本模块演示前两种（同步），并附一段 messages 模式的注释示例（要 async）。
 """
+import sys
+from pathlib import Path
+
+# 兼容按文件路径直接执行 `main.py` 时的导入路径。
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import StateGraph, START

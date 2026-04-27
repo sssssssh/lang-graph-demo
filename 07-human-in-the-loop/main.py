@@ -6,7 +6,14 @@
 - Command(resume=...)：调用方决定后，再 invoke 时把决策喂回去
 - HITL 必须配 checkpointer——没有 checkpoint 就没"暂停点"
 """
+import sys
+from pathlib import Path
 from typing import Literal
+
+# 兼容按文件路径直接执行 `main.py` 时的导入路径。
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 from langchain_core.messages import AIMessage, HumanMessage
 from langgraph.checkpoint.memory import MemorySaver
